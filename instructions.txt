@@ -3,3 +3,9 @@ Copy the start.sh and environment files to the HPRC server
 Simply run the start.sh file
 
 Then copy the data and model file to the respective folders
+
+********************************
+Important Note:
+Do not push the model and data folder to the git.
+They should only be used in the local system or in the server.
+********************************
