@@ -1,4 +1,4 @@
-name: dlproject
+name: dffenv
 dependencies:
 - scipy
 - cuda90
@@ -89,7 +89,6 @@ dependencies:
 - pytest
 - cython
 - pip:
-  - mxnet
   - cython
   - opencv-python==3.2.0.6
   - easydict==1.6

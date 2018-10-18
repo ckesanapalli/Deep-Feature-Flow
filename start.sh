@@ -51,10 +51,25 @@ make -j4
 # ==============================================================================
 cd python
 sudo python setup.py install
-cd $(DFF_ROOT)
 
 # ==============================================================================
 # modify MXNET_VERSION in ./experiments/dff_rfcn/cfgs/*.yaml to $(YOUR_MXNET_PACKAGE).
 # Thus you can switch among different versions of MXNet quickly.
 # ==============================================================================
-sed -i '2 MXNET_VERSION: "$(MXNET_ROOT)" ' ./experiments/dff_rfcn/cfgs/*.yaml
+sed -i '2 MXNET_VERSION: "$(MXNET_ROOT)" ' $(DFF_ROOT)/experiments/dff_rfcn/cfgs/*.yaml
+
+# ==============================================================================
+# making model and data folders
+# ==============================================================================
+cd $(DFF_ROOT)
+mkdir model
+mkdir model/pretrained_model/
+mkdir data/ILSVRC2015/
+mkdir data/ILSVRC2015/Annotations/
+mkdir data/ILSVRC2015/Annotations/DET
+mkdir data/ILSVRC2015/Annotations/VID
+mkdir data/ILSVRC2015/Data
+mkdir data/ILSVRC2015/Data/DET
+mkdir data/ILSVRC2015/Data/VID
+mkdir data/ILSVRC2015/ImageSets
+
