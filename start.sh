@@ -5,14 +5,12 @@
 #SBATCH --get-user-env=L            			#Replicate login environment
 
 ##NECESSARY JOB SPECIFICATIONS
-#SBATCH --job-name="DFF_Project"				#Set the job name
+#SBATCH --job-name="DFF_Project_Start"			#Set the job name
 #SBATCH --time=01:00:00							#Set the wall clock limit
 
 #SBATCH --ntasks=1								#Request 1 task
 #SBATCH --mem=2560M								#Request 2560MB (2.5GB) per node
-#SBATCH --output=log.%j.txt						#Send stdout/err
-#SBATCH --gres=gpu:1							#Request 1 GPU per node can be 1 or 2
-#SBATCH --partition=gpu							#Request the GPU partition/queue
+#SBATCH --output=start_log.%j.txt				#Send stdout/err
 
 ##OPTIONAL JOB SPECIFICATIONS
 #SBATCH --account=122806181077					#Set billing account to 123456

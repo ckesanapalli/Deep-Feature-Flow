@@ -1,4 +1,10 @@
-Copy the start.sh and environment files to the folder 'dffproject' in HPRC server
+Copy the start.sh and environment files to the folder 'dffproject' in HPRC terra server
+
+in the ssh run
+
+cd $HOME/dffproject
+dos2unix *
+sbatch start.sh
 
 Simply run the start.sh file
 
