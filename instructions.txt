@@ -1,4 +1,4 @@
-Copy the start.sh and environment files to the HPRC server
+Copy the start.sh and environment files to the folder 'dffproject' in HPRC server
 
 Simply run the start.sh file
 

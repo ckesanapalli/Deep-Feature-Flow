@@ -5,8 +5,8 @@
 #SBATCH --get-user-env=L            			#Replicate login environment
 
 ##NECESSARY JOB SPECIFICATIONS
-#SBATCH --job-name="SLAM_3D_TEST2"				#Set the job name
-#SBATCH --time=20:00:00							#Set the wall clock limit
+#SBATCH --job-name="DFF_Project"				#Set the job name
+#SBATCH --time=01:00:00							#Set the wall clock limit
 
 #SBATCH --ntasks=1								#Request 1 task
 #SBATCH --mem=2560M								#Request 2560MB (2.5GB) per node
@@ -35,7 +35,7 @@ conda env create -f environment.yml		# Create environment
 # Clone the Deep Feature Flow repository, and
 # we'll call the directory that you cloned Deep-Feature-Flow as ${DFF_ROOT}.
 # ==============================================================================
-DFF_ROOT = $HOME/dlproject
+DFF_ROOT = $HOME/dffproject
 cd $(DFF_ROOT)
 git clone https://github.com/msracver/Deep-Feature-Flow.git
 
