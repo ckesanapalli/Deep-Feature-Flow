@@ -1,11 +1,33 @@
 #!/bin/bash
+##ENVIRONMENT SETTINGS; CHANGE WITH CAUTION
+
+#SBATCH --export=NONE               			#Do not propagate environment
+#SBATCH --get-user-env=L            			#Replicate login environment
+
+##NECESSARY JOB SPECIFICATIONS
+#SBATCH --job-name="SLAM_3D_TEST2"				#Set the job name
+#SBATCH --time=20:00:00							#Set the wall clock limit
+
+#SBATCH --ntasks=1								#Request 1 task
+#SBATCH --mem=2560M								#Request 2560MB (2.5GB) per node
+#SBATCH --output=log.%j.txt						#Send stdout/err
+#SBATCH --gres=gpu:1							#Request 1 GPU per node can be 1 or 2
+#SBATCH --partition=gpu							#Request the GPU partition/queue
+
+##OPTIONAL JOB SPECIFICATIONS
+#SBATCH --account=122806181077					#Set billing account to 123456
+#SBATCH --mail-type=END							#Send email on all job events
+#SBATCH --mail-user=k.c.chowdary135@gmail.com	#Send all emails to email_address
+
+
+# Copy start.sh and environment.yml files to the HPRC server
 
 # ==============================================================================
 # for the HPRC environment creation
 # We recommend using Anaconda2, Python 2.7.
 # ==============================================================================
-dos2unix *.*
 cd $(SCRATCH)							# Make scratch your current directory
+module load purge                       # Purge all modules
 module load Anaconda2/5.2.0				# Load Anaconda module
 conda env create -f environment.yml		# Create environment
 
@@ -63,7 +85,7 @@ sed -i '2 MXNET_VERSION: "$(MXNET_ROOT)" ' $(DFF_ROOT)/experiments/dff_rfcn/cfgs
 # ==============================================================================
 cd $(DFF_ROOT)
 mkdir model
-mkdir model/pretrained_model/
+mkdir model/pretrained_model/a
 mkdir data/ILSVRC2015/
 mkdir data/ILSVRC2015/Annotations/
 mkdir data/ILSVRC2015/Annotations/DET

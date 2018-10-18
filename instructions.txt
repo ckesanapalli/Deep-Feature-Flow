@@ -1,0 +1,5 @@
+Copy the start.sh and environment files to the HPRC server
+
+Simply run the start.sh file
+
+Then copy the data and model file to the respective folders
