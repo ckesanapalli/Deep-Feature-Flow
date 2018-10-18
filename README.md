@@ -88,9 +88,9 @@ Any NVIDIA GPUs with at least 6GB memory should be OK
 1. Clone the Deep Feature Flow repository, and we'll call the directory that you cloned Deep-Feature-Flow as ${DFF_ROOT}. 
 
 ~~~
-git clone https://github.com/msracver/Deep-Feature-Flow.git
+git clone https://github.com/ckesanapalli/Deep-Feature-Flow.git
 ~~~
-2. For Windows users, run ``cmd .\init.bat``. For Linux user, run `sh ./init.sh`. The scripts will build cython module automatically and create some folders.
+2. For Windows users, run ``cmd .\init.bat``. For Linux user, run `sh ./start.sh`. The scripts will build cython module automatically and create some folders.
 
 3. Install MXNet:
 
