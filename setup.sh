@@ -83,7 +83,7 @@ sed -i '2 MXNET_VERSION: "$(MXNET_ROOT)" ' $(DFF_ROOT)/experiments/dff_rfcn/cfgs
 # ==============================================================================
 cd $(DFF_ROOT)
 mkdir model
-mkdir model/pretrained_model/a
+mkdir model/pretrained_model/
 mkdir data/ILSVRC2015/
 mkdir data/ILSVRC2015/Annotations/
 mkdir data/ILSVRC2015/Annotations/DET
