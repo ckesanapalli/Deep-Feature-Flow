@@ -1,7 +1,7 @@
 name: dffenv
 dependencies:
 - scipy
-- cuda90
+# - cuda90
 - cudnn
 - numpy
 - pillow

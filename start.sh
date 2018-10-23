@@ -11,6 +11,8 @@
 #SBATCH --ntasks=1								#Request 1 task
 #SBATCH --mem=2560M								#Request 2560MB (2.5GB) per node
 #SBATCH --output=start_log.%j.txt				#Send stdout/err
+# #SBATCH --gres=gpu:1							#Request 1 GPU per node can be 1 or 2
+# #SBATCH --partition=gpu							#Request the GPU partition/queue
 
 ##OPTIONAL JOB SPECIFICATIONS
 #SBATCH --account=122806181077					#Set billing account to 123456
@@ -22,74 +24,77 @@
 
 # ==============================================================================
 # for the HPRC environment creation
-# We recommend using Anaconda2, Python 2.7.
+# We recommend using Anaconda, Python 2.7.
 # ==============================================================================
-cd $(SCRATCH)							# Make scratch your current directory
-module load purge                       # Purge all modules
-module load Anaconda2/5.2.0				# Load Anaconda module
-conda env create -f environment.yml		# Create environment
+DFF_ROOT=$HOME/dffproject
+mkdir -p $DFF_ROOT
 
-# ==============================================================================
-# Clone the Deep Feature Flow repository, and
-# we'll call the directory that you cloned Deep-Feature-Flow as ${DFF_ROOT}.
-# ==============================================================================
-DFF_ROOT = $HOME/dffproject
-cd $(DFF_ROOT)
-git clone https://github.com/msracver/Deep-Feature-Flow.git
+cd $SCRATCH						# Make scratch your current directory
+ml purge                       	# Purge all modules
+ml CUDA/9.0.176					# Load CUDA module
+ml Anaconda/3-5.0.0.1			# Load Anaconda module
+conda env create -f $DFF_ROOT/environment.yml		# Create environment
 
-# ==============================================================================
-# build cython module automatically and create some folders.
-# ==============================================================================
-./init.sh
+# # ==============================================================================
+# # Clone the Deep Feature Flow repository, and
+# # we'll call the directory that you cloned Deep-Feature-Flow as ${DFF_ROOT}.
+# # ==============================================================================
+# DFF_ROOT=$HOME/dffproject
+# cd $DFF_ROOT
+# git clone https://github.com/ckesanapalli/Deep-Feature-Flow.git
 
-# ==============================================================================
-# For advanced users, you may put your Python package into ./external/mxnet/$(YOUR_MXNET_PACKAGE)
-# Clone MXNet and checkout to MXNet@(commit 62ecb60) by
-# ==============================================================================
-cd ./external/mxnet
-git clone --recursive https://github.com/dmlc/mxnet.git
-git checkout 62ecb60
-git submodule update
-MXNET_ROOT = ./external/mxnet/*
-cd $(DFF_ROOT)
+# # ==============================================================================
+# # build cython module automatically and create some folders.
+# # ==============================================================================
+# ./init.sh
 
-# ==============================================================================
-# Copy operators in $(DFF_ROOT)/dff_rfcn/operator_cxx or
-# $(DFF_ROOT)/rfcn/operator_cxx to $(YOUR_MXNET_FOLDER)/src/operator/contrib by
-# ==============================================================================
-cp -r $(DFF_ROOT)/dff_rfcn/operator_cxx/* $(MXNET_ROOT)/src/operator/contrib/
+# # ==============================================================================
+# # For advanced users, you may put your Python package into ./external/mxnet/$(YOUR_MXNET_PACKAGE)
+# # Clone MXNet and checkout to MXNet@(commit 62ecb60) by
+# # ==============================================================================
+# cd ./external/mxnet
+# git clone --recursive https://github.com/dmlc/mxnet.git
+# git checkout 62ecb60
+# git submodule update
+# MXNET_ROOT=./external/mxnet/*
+# cd $DFF_ROOT
 
-# ==============================================================================
-# Compile MXNet
-# ==============================================================================
-cd $(MXNET_ROOT)
-make -j4
+# # ==============================================================================
+# # Copy operators in $(DFF_ROOT)/dff_rfcn/operator_cxx or
+# # $(DFF_ROOT)/rfcn/operator_cxx to $(YOUR_MXNET_FOLDER)/src/operator/contrib by
+# # ==============================================================================
+# cp -r $DFF_ROOT/dff_rfcn/operator_cxx/* $MXNET_ROOT/src/operator/contrib/
 
-# ==============================================================================
-# Install the MXNet Python binding by
-# Note: If you will actively switch between different versions of MXNet, please follow 3.5 instead of 3.4
-# ==============================================================================
-cd python
-sudo python setup.py install
+# # ==============================================================================
+# # Compile MXNet
+# # ==============================================================================
+# cd $MXNET_ROOT
+# make -j4
 
-# ==============================================================================
-# modify MXNET_VERSION in ./experiments/dff_rfcn/cfgs/*.yaml to $(YOUR_MXNET_PACKAGE).
-# Thus you can switch among different versions of MXNet quickly.
-# ==============================================================================
-sed -i '2 MXNET_VERSION: "$(MXNET_ROOT)" ' $(DFF_ROOT)/experiments/dff_rfcn/cfgs/*.yaml
+# # ==============================================================================
+# # Install the MXNet Python binding by
+# # Note: If you will actively switch between different versions of MXNet, please follow 3.5 instead of 3.4
+# # ==============================================================================
+# cd python
+# sudo python setup.py install
 
-# ==============================================================================
-# making model and data folders
-# ==============================================================================
-cd $(DFF_ROOT)
-mkdir model
-mkdir model/pretrained_model/a
-mkdir data/ILSVRC2015/
-mkdir data/ILSVRC2015/Annotations/
-mkdir data/ILSVRC2015/Annotations/DET
-mkdir data/ILSVRC2015/Annotations/VID
-mkdir data/ILSVRC2015/Data
-mkdir data/ILSVRC2015/Data/DET
-mkdir data/ILSVRC2015/Data/VID
-mkdir data/ILSVRC2015/ImageSets
+# # ==============================================================================
+# # modify MXNET_VERSION in ./experiments/dff_rfcn/cfgs/*.yaml to $(YOUR_MXNET_PACKAGE).
+# # Thus you can switch among different versions of MXNet quickly.
+# # ==============================================================================
+# sed -i '2 MXNET_VERSION: "$MXNET_ROOT" ' $DFF_ROOT/experiments/dff_rfcn/cfgs/*.yaml
 
+# # ==============================================================================
+# # making model and data folders
+# # ==============================================================================
+# cd $DFF_ROOT
+# mkdir model
+# mkdir model/pretrained_model/a
+# mkdir data/ILSVRC2015/
+# mkdir data/ILSVRC2015/Annotations/
+# mkdir data/ILSVRC2015/Annotations/DET
+# mkdir data/ILSVRC2015/Annotations/VID
+# mkdir data/ILSVRC2015/Data
+# mkdir data/ILSVRC2015/Data/DET
+# mkdir data/ILSVRC2015/Data/VID
+# mkdir data/ILSVRC2015/ImageSets

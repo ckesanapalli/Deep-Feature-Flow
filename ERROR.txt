@@ -1,0 +1,3 @@
+The environment is created in the home folder rather than the SCRATCH folder.
+
+The Anaconda is recommended is Anaconda2. I dont know where it is Anaconda/2 or Anaconda2
