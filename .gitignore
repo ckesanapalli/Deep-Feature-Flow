@@ -91,3 +91,6 @@ output
 model
 
 .db
+_raw_files/demo_model.zip
+_raw_files/demo_model.zip
+*.lnk
