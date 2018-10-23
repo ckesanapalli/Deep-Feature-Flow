@@ -5,8 +5,8 @@
 #SBATCH --get-user-env=L            			#Replicate login environment
 
 ##NECESSARY JOB SPECIFICATIONS
-#SBATCH --job-name="DFF_Project_Start"			#Set the job name
-#SBATCH --time=01:00:00							#Set the wall clock limit
+#SBATCH --job-name="DFF_Project_Setup"			#Set the job name
+#SBATCH --time=02:00:00							#Set the wall clock limit
 
 #SBATCH --ntasks=1								#Request 1 task
 #SBATCH --mem=2560M								#Request 2560MB (2.5GB) per node
